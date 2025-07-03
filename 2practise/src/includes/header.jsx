@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from "../assets/logo.png";
 import Button from '../components/Button';
+import { Link } from 'react-router';
 
 class header extends React.Component {
     render() {
@@ -9,10 +10,12 @@ class header extends React.Component {
                 <div className="header-top">
                     <div className="header-left">
                         <Button content="О нас" colorText="blue" href="#" colorBack="none"></Button>
-                        <Button content="Каталог" colorText="black" href="#" colorBack="none"></Button>
+                        <Button content="Каталог" colorText="black" href="/catalog" colorBack="none"></Button>
                         <Button content="Где найти нас" colorText="black" href="#" colorBack="none"></Button>
                     </div>
-                    <img src={logo} alt="Ошибка" className="header-img" />
+                    <Link to="/">
+                        <img src={logo} alt="Ошибка" className="header-img" />
+                    </Link>
                     <div className="header-right">
                         <Button content="Регистрация" colorText="white" href="#" colorBack="rgb(33, 33, 33)"></Button>
                         <Button content="Вход" colorText="white" href="#" colorBack="blue"></Button>
