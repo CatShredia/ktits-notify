@@ -5,6 +5,8 @@ import Button from '../components/Button';
 import maslo from '../assets/maslo.jpeg'
 import shin from '../assets/shin.jpeg'
 
+import products from '../../data/products.json';
+
 class main extends React.Component {
     render() {
         return (
@@ -18,21 +20,15 @@ class main extends React.Component {
                         <Button colorText="blue" colorBack="white" content="Ароматизаторы" href="#"></Button>
                     </div>
                     <div className="main-1-cat">
-                        <SellItem img={maslo} title="названиен" cost="110"></SellItem>
-                        <SellItem img={maslo} title="названиен" cost="110"></SellItem>
-                        <SellItem img={maslo} title="названиен" cost="110"></SellItem>
-                        <SellItem img={maslo} title="названиен" cost="110"></SellItem>
-                        <SellItem img={maslo} title="названиен" cost="110"></SellItem>
-                        <SellItem img={maslo} title="названиен" cost="110"></SellItem>
-                        <SellItem img={maslo} title="названиен" cost="110"></SellItem>
-                        <SellItem img={maslo} title="названиен" cost="110"></SellItem>
-                        <SellItem img={maslo} title="названиен" cost="110"></SellItem>
-                        <SellItem img={maslo} title="названиен" cost="110"></SellItem>
-                        <SellItem img={shin} title="названиен" cost="110"></SellItem>
-                        <SellItem img={maslo} title="названиен" cost="110"></SellItem>
-                        <SellItem img={maslo} title="названиен" cost="110"></SellItem>
-                        <SellItem img={maslo} title="названиен" cost="110"></SellItem>
-                        <SellItem img={maslo} title="названиен" cost="110"></SellItem>
+                        {products.map((product, index) => (
+                            <SellItem
+                                key={index}
+                                img={product["Путь к картинке"]}
+                                title={product["Название"]}
+                                cost={product["Цена"]}
+                                desc={product["Описание"]}
+                            />
+                        ))}
                     </div>
                 </div>
             </main>
