@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 class Button extends React.Component {
     render() {
@@ -18,7 +19,7 @@ class Button extends React.Component {
             margin: '10px'
         };
 
-        return <a href={href} style={styles}>{content}</a>;
+        return <Link to={href} style={styles}>{content}</Link>;
     }
 }
 

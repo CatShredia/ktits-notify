@@ -1,21 +1,24 @@
 import "./App.css";
 import "./assets/style.css";
 
+import { BrowserRouter, Routes, Route, Link } from "react-router";
+
 import Header from './includes/header'
 import Main from './includes/main'
+import Home from './pages/Home'
+import Catalog from './pages/Catalog'
 
-import logo from "./assets/logo.png";
-import arom from "./assets/arom.jpg";
-import shin from "./assets/shin.jpeg";
-import maslo from "./assets/maslo.jpeg";
 function App() {
   return (
     <>
-      <div>
-        <Header></Header>
-        <Main></Main>
-      </div>
+      <Header />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="catalog" element={<Catalog />} />
+      </Routes>
     </>
+
   );
 }
 export default App;
