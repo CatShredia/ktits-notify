@@ -1,21 +1,24 @@
-import Button from '../components/Button';
+import React, { useState, useMemo } from 'react';
 import SellItem from '../components/SellItem';
 import products from '../../data/products.json';
 import categories from '../../data/category.json';
-
-import React, { useState, useMemo } from 'react';
-import Fuse from "fuse.js";
+import Fuse from 'fuse.js';
 
 export default function Catalog() {
-
-    const [searchTerm, setSearchTerm] = useState("");
+    // Условия отбросывания
+    const [searchTerm, setSearchTerm] = useState('');
+    // Выбранная категория (может быть только одна)
     const [selectedCategory, setSelectedCategory] = useState(null);
 
+    // отображаемые продукты (при изменении параметров обновляется)
     const displayedProducts = useMemo(() => {
-        let filtered = selectedCategory ? products.filter(p => p["Категория"] === selectedCategory) : products;
+        let filtered = selectedCategory
+            ? products.filter(p => p['Категория'] === selectedCategory)
+            : products;
 
+        // поиск только если не пусто
         if (searchTerm) {
-            const fuse = new Fuse(filtered, { keys: ["Название"], threshold: 0.4 });
+            const fuse = new Fuse(filtered, { keys: ['Название'], threshold: 0.4 });
             filtered = fuse.search(searchTerm).map(result => result.item);
         }
 
@@ -25,62 +28,63 @@ export default function Catalog() {
     return (
         <div className="main-1">
             <p className="main-1-title">Каталог товаров</p>
-            <div className="main-filter">
-                <Button
-                    colorText="White"
-                    colorBack="blue"
-                    content="Все товары"
-                    onClick={() => setSelectedCategory(null)}
-                    type="button"
-                />
-                <Button colorText="blue" colorBack="white" content="Шины/Колеса" href="#"></Button>
-                <Button colorText="blue" colorBack="white" content="Масла" href="#"></Button>
-                <Button colorText="blue" colorBack="white" content="Ароматизаторы" href="#"></Button>
-            </div>
 
-            {/* Кнопки категорий */}
             <div className="main-filter">
-                {/* Кнопка "Все категории" */}
-                <Button
-                    key="all"
-                    colorText={!selectedCategory ? "White" : "blue"}
-                    colorBack={!selectedCategory ? "blue" : "white"}
-                    content="Все категории"
-                    onClick={() => setSelectedCategory(null)}
+                <button
                     type="button"
-                />
+                    style={{
+                        color: !selectedCategory ? 'White' : 'blue',
+                        backgroundColor: !selectedCategory ? 'blue' : 'white',
+                        border: 'none',
+                        padding: '10px 20px',
+                        margin: '5px',
+                        cursor: 'pointer',
+                        fontSize: '16px',
+                        borderRadius: '4px',
+                    }}
+                    onClick={() => setSelectedCategory(null)}
+                >
+                    Все категории
+                </button>
 
-                {/* Остальные категории */}
+                {/* Категории выводим из category.json */}
                 {categories.map((category, index) => (
-                    <Button
+                    <button
                         key={index}
-                        colorText={selectedCategory === category["Название"] ? "White" : "blue"}
-                        colorBack={selectedCategory === category["Название"] ? "blue" : "white"}
-                        content={category["Название"]}
-                        onClick={() => setSelectedCategory(category["Название"])}
                         type="button"
-                    />
+                        style={{
+                            color: selectedCategory === category['Название'] ? 'White' : 'blue',
+                            backgroundColor: selectedCategory === category['Название'] ? 'blue' : 'white',
+                            border: 'none',
+                            padding: '10px 20px',
+                            margin: '5px',
+                            cursor: 'pointer',
+                            fontSize: '16px',
+                            borderRadius: '4px',
+                        }}
+                        onClick={() => setSelectedCategory(category['Название'])}
+                    >
+                        {category['Название']}
+                    </button>
                 ))}
             </div>
 
-            {/* Строка поиска */}
             <input
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Нечеткий поиск..."
+                placeholder="Поиск..."
+                style={{ marginBottom: '20px', padding: '8px', fontSize: '16px' }}
             />
 
-            {/* Вывод товаров */}
             <div className="main-1-cat">
                 {displayedProducts.length > 0 ? (
                     displayedProducts.map((product, index) => (
                         <SellItem
                             key={index}
-                            img={product["Путь к картинке"]}
-                            title={product["Название"]}
-                            cost={product["Цена"]}
-                            desc={product["Описание"]}
-                            category={product["Категория"]}
+                            img={product['Путь к картинке']}
+                            title={product['Название']}
+                            cost={product['Цена']}
+                            desc={product['Описание']}
                         />
                     ))
                 ) : (
