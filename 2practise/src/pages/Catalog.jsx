@@ -80,7 +80,7 @@ export default function Catalog() {
                 {displayedProducts.length > 0 ? (
                     displayedProducts.map((product, index) => (
                         <SellItem
-                            key={index}
+                            id={product["id"]}
                             img={product['Путь к картинке']}
                             title={product['Название']}
                             cost={product['Цена']}

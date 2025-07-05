@@ -324,3 +324,8 @@ html {
   border-radius: 5px;
   border: none;
 }
+
+#one {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
