@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 class SellItem extends React.Component {
     render() {
+        const { id } = this.props;
         const { img } = this.props;
         const { title } = this.props;
         const { cost } = this.props;
@@ -16,7 +18,7 @@ class SellItem extends React.Component {
                 <p className="main-1-cat-el--text">Категория: {category}</p>
                 <div className="main-1-cat-el-bottom">
                     <p className="main-1-cat-el--p">{cost}$</p>
-                    <a href="" className="main-1-cat-el--a">Добавить в корзину</a>
+                    <Link to={`/catalog/${id}`} className="main-1-cat-el--a">Посмотреть</Link>
                 </div>
             </div>
         );
