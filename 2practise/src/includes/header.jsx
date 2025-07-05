@@ -9,7 +9,7 @@ class header extends React.Component {
             <header className="header container">
                 <div className="header-top">
                     <div className="header-left">
-                        <Button content="О нас" colorText="blue" href="#" colorBack="none"></Button>
+                        <Button content="О нас" colorText="blue" href="/about" colorBack="none"></Button>
                         <Button content="Каталог" colorText="black" href="/catalog" colorBack="none"></Button>
                         <Button content="Где найти нас" colorText="black" href="#" colorBack="none"></Button>
                     </div>
