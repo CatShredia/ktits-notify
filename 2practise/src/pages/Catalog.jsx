@@ -5,30 +5,38 @@ import categories from '../../data/category.json';
 import Fuse from 'fuse.js';
 
 export default function Catalog() {
-    // Условия отбросывания
     const [searchTerm, setSearchTerm] = useState('');
-    // Выбранная категория (может быть только одна)
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const [minPrice, setMinPrice] = useState('');
+    const [maxPrice, setMaxPrice] = useState('');
 
-    // отображаемые продукты (при изменении параметров обновляется)
     const displayedProducts = useMemo(() => {
         let filtered = selectedCategory
             ? products.filter(p => p['Категория'] === selectedCategory)
             : products;
 
-        // поиск только если не пусто
+        // Фильтр по цене
+        if (minPrice || maxPrice) {
+            const min = parseFloat(minPrice) || -Infinity;
+            const max = parseFloat(maxPrice) || Infinity;
+
+            filtered = filtered.filter(product => product['Цена'] >= min && product['Цена'] <= max);
+        }
+
+        // Поиск по названию
         if (searchTerm) {
             const fuse = new Fuse(filtered, { keys: ['Название'], threshold: 0.4 });
             filtered = fuse.search(searchTerm).map(result => result.item);
         }
 
         return filtered;
-    }, [selectedCategory, searchTerm]);
+    }, [selectedCategory, searchTerm, minPrice, maxPrice]);
 
     return (
         <div className="main-1">
             <p className="main-1-title">Каталог товаров</p>
 
+            {/* Фильтры */}
             <div className="main-filter">
                 <button
                     type="button"
@@ -47,7 +55,6 @@ export default function Catalog() {
                     Все категории
                 </button>
 
-                {/* Категории выводим из category.json */}
                 {categories.map((category, index) => (
                     <button
                         key={index}
@@ -69,17 +76,62 @@ export default function Catalog() {
                 ))}
             </div>
 
-            <input
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Поиск..."
-                style={{ marginBottom: '20px', padding: '8px', fontSize: '16px' }}
-            />
+            {/* Блок поиска и фильтрации по цене */}
+            <div className="main-search-and-filters" style={{ marginBottom: '20px', display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
+                <input
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="Поиск..."
+                    style={{ padding: '8px', fontSize: '16px', width: '200px' }}
+                />
 
+                <label style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
+                    От:
+                    <input
+                        type="number"
+                        value={minPrice}
+                        onChange={(e) => setMinPrice(e.target.value)}
+                        placeholder="Мин цена"
+                        style={{ padding: '5px', width: '100px' }}
+                    />
+                </label>
+
+                <label style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
+                    До:
+                    <input
+                        type="number"
+                        value={maxPrice}
+                        onChange={(e) => setMaxPrice(e.target.value)}
+                        placeholder="Макс цена"
+                        style={{ padding: '5px', width: '100px' }}
+                    />
+                </label>
+
+                {(minPrice || maxPrice) && (
+                    <button
+                        onClick={() => {
+                            setMinPrice('');
+                            setMaxPrice('');
+                        }}
+                        style={{
+                            marginLeft: '10px',
+                            background: '#eee',
+                            border: '1px solid #ccc',
+                            padding: '5px 10px',
+                            cursor: 'pointer'
+                        }}
+                    >
+                        Сбросить фильтр по цене
+                    </button>
+                )}
+            </div>
+
+            {/* Товары */}
             <div className="main-1-cat">
                 {displayedProducts.length > 0 ? (
                     displayedProducts.map((product, index) => (
                         <SellItem
+                            key={index}
                             id={product["id"]}
                             img={product['Путь к картинке']}
                             title={product['Название']}
