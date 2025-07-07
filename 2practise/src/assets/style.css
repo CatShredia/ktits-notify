@@ -11,13 +11,20 @@
   text-decoration: none;
 }
 
+button {
+  box-sizing: border-box;
+  border: none;
+}
+
 /* TODO: Настройка ссылок */
-a {
+a,
+button {
   display: inline-block;
   transition: transform 0.3s ease;
 }
 
-a:hover {
+a:hover,
+button:hover {
   transform: scale(1.03);
 }
 

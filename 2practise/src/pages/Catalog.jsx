@@ -32,6 +32,14 @@ export default function Catalog() {
         return filtered;
     }, [selectedCategory, searchTerm, minPrice, maxPrice]);
 
+    const addBackerCount = (product) => {
+        const productId = product.id;
+
+        const currentCount = parseInt(localStorage.getItem(productId), 10) || 0;
+
+        localStorage.setItem(productId, (currentCount + 1).toString());
+    };
+
     return (
         <div className="main-1">
             <p className="main-1-title">Каталог товаров</p>
@@ -137,6 +145,7 @@ export default function Catalog() {
                             title={product['Название']}
                             cost={product['Цена']}
                             desc={product['Описание']}
+                            backerAction={() => addBackerCount(product)}
                         />
                     ))
                 ) : (
