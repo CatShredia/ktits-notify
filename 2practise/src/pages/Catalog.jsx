@@ -6,10 +6,15 @@ import Fuse from 'fuse.js';
 import Button from '../components/Button';
 
 export default function Catalog() {
+    // поиск
     const [searchTerm, setSearchTerm] = useState('');
+    // выбранная категория
     const [selectedCategory, setSelectedCategory] = useState(null);
+    // цены
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
+    // порядок сортировки по цене
+    const [sortOrder, setSortOrder] = useState(''); // '', 'asc', 'desc'
 
     const displayedProducts = useMemo(() => {
         let filtered = selectedCategory
@@ -20,7 +25,6 @@ export default function Catalog() {
         if (minPrice || maxPrice) {
             const min = parseFloat(minPrice) || -Infinity;
             const max = parseFloat(maxPrice) || Infinity;
-
             filtered = filtered.filter(product => product['Цена'] >= min && product['Цена'] <= max);
         }
 
@@ -30,8 +34,19 @@ export default function Catalog() {
             filtered = fuse.search(searchTerm).map(result => result.item);
         }
 
-        return filtered;
-    }, [selectedCategory, searchTerm, minPrice, maxPrice]);
+        // Делаем копию перед сортировкой, чтобы не мутировать исходный массив
+        const result = [...filtered];
+
+        // Сортировка по цене
+        if (sortOrder === 'asc') {
+            result.sort((a, b) => a['Цена'] - b['Цена']);
+        } else if (sortOrder === 'desc') {
+            result.sort((a, b) => b['Цена'] - a['Цена']);
+        }
+        // Если sortOrder пустой — просто возвращаем копию без сортировки
+
+        return result;
+    }, [selectedCategory, searchTerm, minPrice, maxPrice, sortOrder]);
 
     const addBackerCount = (product) => {
         const productId = product.id;
@@ -86,6 +101,14 @@ export default function Catalog() {
                         {category['Название']}
                     </button>
                 ))}
+            </div>
+
+            {/* сортировка по цене */}
+            <div className="main-sort">
+                <label>Сортировка по цене:</label>
+                <button onClick={() => setSortOrder('asc')}>По возрастанию</button>
+                <button onClick={() => setSortOrder('desc')}>По убыванию</button>
+                <button onClick={() => setSortOrder('')}>Без сортировки</button>
             </div>
 
             {/* Блок поиска и фильтрации по цене */}
