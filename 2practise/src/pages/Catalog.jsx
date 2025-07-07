@@ -15,6 +15,8 @@ export default function Catalog() {
     const [maxPrice, setMaxPrice] = useState('');
     // порядок сортировки по цене
     const [sortOrder, setSortOrder] = useState(''); // '', 'asc', 'desc'
+    // порядок сортировки по массиву
+    const [sortIndexOrder, setSortIndexOrder] = useState(''); // '', 'asc', 'desc'
 
     const displayedProducts = useMemo(() => {
         let filtered = selectedCategory
@@ -34,8 +36,17 @@ export default function Catalog() {
             filtered = fuse.search(searchTerm).map(result => result.item);
         }
 
-        // Делаем копию перед сортировкой, чтобы не мутировать исходный массив
-        const result = [...filtered];
+        // Делаем копию перед любыми изменениями
+        let result = [...filtered];
+
+        // Сортировка по индексу
+        if (sortIndexOrder === 'asc') {
+            // Оставляем как есть (по порядку из массива)
+            // Можно не делать ничего, но для ясности:
+            result = [...result];
+        } else if (sortIndexOrder === 'desc') {
+            result.sort((a, b) => products.indexOf(b) - products.indexOf(a));
+        }
 
         // Сортировка по цене
         if (sortOrder === 'asc') {
@@ -43,10 +54,16 @@ export default function Catalog() {
         } else if (sortOrder === 'desc') {
             result.sort((a, b) => b['Цена'] - a['Цена']);
         }
-        // Если sortOrder пустой — просто возвращаем копию без сортировки
 
         return result;
-    }, [selectedCategory, searchTerm, minPrice, maxPrice, sortOrder]);
+    }, [
+        selectedCategory,
+        searchTerm,
+        minPrice,
+        maxPrice,
+        sortOrder,
+        sortIndexOrder,
+    ]);
 
     const addBackerCount = (product) => {
         const productId = product.id;
@@ -103,12 +120,17 @@ export default function Catalog() {
                 ))}
             </div>
 
-            {/* сортировка по цене */}
+            {/* сортировки */}
             <div className="main-sort">
                 <label>Сортировка по цене:</label>
                 <button onClick={() => setSortOrder('asc')}>По возрастанию</button>
                 <button onClick={() => setSortOrder('desc')}>По убыванию</button>
-                <button onClick={() => setSortOrder('')}>Без сортировки</button>
+                <button onClick={() => setSortOrder('')}>Сбросить цену</button>
+
+                <label style={{ marginLeft: '20px' }}>Сортировка по индексу:</label>
+                <button onClick={() => setSortIndexOrder('asc')}>От первого</button>
+                <button onClick={() => setSortIndexOrder('desc')}>От последнего</button>
+                <button onClick={() => setSortIndexOrder('')}>Сбросить индекс</button>
             </div>
 
             {/* Блок поиска и фильтрации по цене */}
