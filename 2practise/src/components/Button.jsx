@@ -7,9 +7,6 @@ class Button extends React.Component {
         const { colorBack } = this.props;
         const { href } = this.props;
         const { content } = this.props;
-        const { onClick } = this.props;
-
-
 
         const styles = {
             backgroundColor: colorBack,

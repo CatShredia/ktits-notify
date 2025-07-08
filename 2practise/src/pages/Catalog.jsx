@@ -3,6 +3,7 @@ import SellItem from '../components/SellItem';
 import products from '../../data/products.json';
 import categories from '../../data/category.json';
 import Fuse from 'fuse.js';
+import Button from '../components/Button';
 
 export default function Catalog() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -43,6 +44,9 @@ export default function Catalog() {
     return (
         <div className="main-1">
             <p className="main-1-title">Каталог товаров</p>
+
+            {/* корзина */}
+            <Button href="/backet" colorBack="blue" colorText="white" content="Перейти в корзину"></Button>
 
             {/* Фильтры */}
             <div className="main-filter">
