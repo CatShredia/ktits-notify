@@ -70,7 +70,8 @@ footer dt a {
     font-size: 24px;
 }
 
-.header__link {
+.header__link,
+.footer__link {
     color: white;
 }
 
