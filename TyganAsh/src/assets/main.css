@@ -171,3 +171,25 @@ main {
 
     gap: 20px;
 }
+
+.product__button_darknest,
+.product__button_lightnest {
+    color: white;
+    font-size: 24px;
+    font-weight: normal;
+
+    border-radius: 5px;
+    padding: 2px 5px;
+
+    width: 200px;
+
+    text-align: center;
+}
+
+.product__button_darknest {
+    background-color: #056D0C;
+}
+
+.product__button_lightnest {
+    background-color: #1C8D24;
+}
