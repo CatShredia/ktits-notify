@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=WDXL+Lubrifont+TC&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+
+    text-decoration: none;
+
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+}
+
+img {
+    width: 100%;
+}
+
+a,
+button {
+    display: block;
+    color: black;
+    border: none;
+
+    background: none;
+}
+
+dl {
+    display: flex;
+
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+#root {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+
+    display: grid;
+    grid-template-rows: auto auto auto;
+}
+
+.container {
+    padding: 10px 40px;
+}
+
+/* !header, footer */
+header,
+footer {
+    display: flex;
+
+    gap: 10px;
+
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: #056D0C;
+}
+
+.logo img {
+    width: 75px;
+}
+
+header dt a,
+header dt i,
+footer dt a {
+    text-shadow: 4px 4px 10px rgba(255, 255, 255, 0.5);
+    font-size: 24px;
+}
+
+.header__link {
+    color: white;
+}
+
+/* !main */
+main {
+    min-height: 80vh;
+}
