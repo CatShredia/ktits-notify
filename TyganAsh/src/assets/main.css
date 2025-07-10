@@ -193,3 +193,20 @@ main {
 .product__button_lightnest {
     background-color: #1C8D24;
 }
+
+.section-product {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    justify-content: center;
+
+    gap: 15px;
+
+    font-weight: 400;
+}
+
+.section-product .content {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
