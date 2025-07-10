@@ -1,4 +1,5 @@
 import HomePage from "./pages/HomePage"
+import CatalogPage from "./pages/CatalogPage"
 
 import { BrowserRouter, Routes, Route, Link } from "react-router";
 import Header from "./pages/includes/Header";
@@ -14,6 +15,7 @@ function App() {
       <main className="main">
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/catalog" element={<CatalogPage />} />
         </Routes>
       </main>
 

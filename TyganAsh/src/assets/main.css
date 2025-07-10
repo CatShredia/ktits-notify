@@ -163,3 +163,11 @@ main {
     color: #1e3050;
     font-size: 40px;
 }
+
+/* !catalog */
+.section-products {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+}
