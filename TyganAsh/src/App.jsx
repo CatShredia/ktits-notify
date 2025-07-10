@@ -1,7 +1,7 @@
 import HomePage from "./pages/HomePage"
 import CatalogPage from "./pages/CatalogPage"
 
-import { BrowserRouter, Routes, Route, Link } from "react-router";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Header from "./pages/includes/Header";
 import Footer from "./pages/includes/Footer";
 

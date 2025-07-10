@@ -1,4 +1,3 @@
-import { Link } from "react-router";
 import Banner from "../components/Banner";
 
 import bannerImg from '../assets/image.png'
