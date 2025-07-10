@@ -1,0 +1,58 @@
+[
+    {
+        "id": 1,
+        "title": "Эчпочмак",
+        "description": "Традиционный татарский пирожок с мясом, картофелем и луком, запечённый до золотистой корочки.",
+        "cost": 150,
+        "image_url": "https://avatars.mds.yandex.net/i?id=1c67f7172c331c5aa6be4228851ed7d5cd06e29c-5354411-images-thumbs&n=13"
+    },
+    {
+        "id": 2,
+        "title": "Чак-чак",
+        "description": "Сладкое татарское угощение из теста, масла и мёда. Подается в виде хрустящих комочков.",
+        "cost": 200,
+        "image_url": "https://avatars.mds.yandex.net/i?id=a22a30e80219bb7a660f50bcc39260ad3d1a00d8-10268314-images-thumbs&n=13"
+    },
+    {
+        "id": 3,
+        "title": "Кыстыбый",
+        "description": "Румяные картофельные оладушки с фаршем внутри. Традиционное домашнее блюдо.",
+        "cost": 180,
+        "image_url": "https://avatars.mds.yandex.net/i?id=91d17c6361c49e9626e3ab865645e3f5cc9ceff3-5232112-images-thumbs&n=13"
+    },
+    {
+        "id": 4,
+        "title": "Тукемеш",
+        "description": "Пышные лепёшки из заварного теста, фаршированные мясом или сыром.",
+        "cost": 170,
+        "image_url": "https://avatars.mds.yandex.net/i?id=09a13b2b4239aafc1342aa923e394d9468c768cc-4598658-images-thumbs&n=13"
+    },
+    {
+        "id": 5,
+        "title": "Катык",
+        "description": "Натуральный татарский кисломолочный напиток, приготовленный по деревенским рецептам.",
+        "cost": 90,
+        "image_url": "https://avatars.mds.yandex.net/i?id=4552d8ff11454897585b8fd5a31f4305aefba9f1-5384283-images-thumbs&n=13"
+    },
+    {
+        "id": 6,
+        "title": "Бишбармак",
+        "description": "Традиционное блюдо из теста с мясом и наваристым бульоном. Символ гостеприимства.",
+        "cost": 250,
+        "image_url": "https://avatars.mds.yandex.net/i?id=f8e14ffaa1e73cd75ebb898f81c1b1966ff57872-5336886-images-thumbs&n=13"
+    },
+    {
+        "id": 7,
+        "title": "Айран",
+        "description": "Освежающий йогуртный напиток с травами, популярный в летнюю жару.",
+        "cost": 80,
+        "image_url": "https://avatars.mds.yandex.net/i?id=5e37807dcb5c4bd6d7b482ea80bec0ea776805cc-9227633-images-thumbs&n=13"
+    },
+    {
+        "id": 8,
+        "title": "Тандыр Кабаб",
+        "description": "Мясо на шпажках, запеченное в тандыре на углях. Аромат дыма и пряностей.",
+        "cost": 300,
+        "image_url": "https://avatars.mds.yandex.net/i?id=20fb9dafa296e04122bdf9f5d212c0d2990e552c-12714047-images-thumbs&n=13"
+    }
+]
