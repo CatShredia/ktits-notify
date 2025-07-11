@@ -6,6 +6,8 @@ import categoriesData from '../../data/categories.json';
 const CatalogPage = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const [sortBy, setSortBy] = useState(null); // 'price' или 'date'
+    const [sortDirection, setSortDirection] = useState('asc'); // 'asc' или 'desc'
 
     const buttons = [
         { type: "link", styles: "product__button_lightnest", path: `/catalog/product`, text: "Посмотреть" },
@@ -18,18 +20,42 @@ const CatalogPage = () => {
         return acc;
     }, {});
 
-    const filteredProducts = productData
-        .filter(product => {
-            // Фильтр по поисковому запросу
-            const matchesSearch = product.title.toLowerCase().includes(searchTerm.toLowerCase());
-            // Фильтр по категории (если выбрана)
-            const matchesCategory = !selectedCategory || product.category_id === selectedCategory;
-            return matchesSearch && matchesCategory;
-        })
-        .map(product => ({
-            ...product,
-            category: categoriesMap[product.category_id] || "Без категории"
-        }));
+    // Функция для сортировки товаров
+    const sortProducts = (products) => {
+        if (!sortBy) return products;
+
+        return [...products].sort((a, b) => {
+            let comparison = 0;
+
+            if (sortBy === 'price') {
+                comparison = a.cost - b.cost;
+            } else if (sortBy === 'date') {
+                // Предполагаем, что у товаров есть поле date (если нет, можно использовать id как пример)
+                comparison = (a.id || 0) - (b.id || 0); // Замените на реальное поле даты
+            }
+
+            return sortDirection === 'asc' ? comparison : -comparison;
+        });
+    };
+
+    const filteredProducts = sortProducts(
+        productData
+            .filter(product => {
+                // Фильтр по поисковому запросу
+                const matchesSearch = product.title.toLowerCase().includes(searchTerm.toLowerCase());
+                // Фильтр по категории (если выбрана)
+                const matchesCategory = !selectedCategory || product.category_id === selectedCategory;
+                return matchesSearch && matchesCategory;
+            })
+            .map(product => ({
+                ...product,
+                category: categoriesMap[product.category_id] || "Без категории"
+            }))
+    );
+
+    const toggleSortDirection = () => {
+        setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc');
+    };
 
     return (
         <>
@@ -62,6 +88,29 @@ const CatalogPage = () => {
                                 {category.title}
                             </button>
                         ))}
+                    </div>
+
+
+                    <div className="sort-controls">
+                        <span>Сортировка:</span>
+                        <button
+                            className={`sort-button ${sortBy === 'price' ? 'active' : ''}`}
+                            onClick={() => setSortBy('price')}
+                        >
+                            По цене
+                        </button>
+                        <button
+                            className={`sort-button ${sortBy === 'date' ? 'active' : ''}`}
+                            onClick={() => setSortBy('date')}
+                        >
+                            По дате добавления
+                        </button>
+                        <button
+                            className="sort-direction"
+                            onClick={toggleSortDirection}
+                        >
+                            {sortDirection === 'asc' ? '↑' : '↓'}
+                        </button>
                     </div>
                 </div>
             </section>

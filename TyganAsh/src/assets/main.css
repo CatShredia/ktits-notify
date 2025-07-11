@@ -229,18 +229,25 @@ main {
     border-radius: 5px;
 }
 
-.category-filters {
+.category-filters,
+.sort-controls {
     display: flex;
     gap: 10px;
 }
 
-.category-filter {
+.category-filter,
+.sort-controls button {
     background-color: #1C8D24;
     color: white;
 
     padding: 10px 20px;
 
     border-radius: 5px;
+}
+
+.sort-controls span {
+    display: flex;
+    align-items: center;
 }
 
 .active {
