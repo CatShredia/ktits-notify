@@ -9,7 +9,7 @@ const Product = (props) => {
             <p className={styles.productDescription}>{props.description}</p>
             <p className={styles.productCost}>{props.cost} ₽</p>
             {props.category && <p className={styles.productCategory}>Категория: {props.category}</p>}
-            {props.inCart > 0 && <p className={styles.inCart}>В корзине: {props.inCart} шт.</p>}
+            <p className={styles.inCart}>В корзине: {props.inCart} шт.</p>
 
             <div className={styles.buttons}>
                 {props.buttons.map((button, index) => {

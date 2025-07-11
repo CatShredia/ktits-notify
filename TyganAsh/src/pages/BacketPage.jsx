@@ -79,7 +79,6 @@ const BasketPage = () => {
                     </div>
                     <div className="total-section">
                         <h2>Итого: {totalPrice} ₽</h2>
-                        <button className="checkout-button">Оформить заказ</button>
                     </div>
                 </>
             ) : (

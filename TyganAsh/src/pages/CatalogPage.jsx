@@ -92,7 +92,59 @@ const CatalogPage = () => {
     return (
         <>
             <section className="section-search container">
-                {/* ... (остается без изменений) ... */}
+                <div className="search-controls">
+                    <input
+                        type="text"
+                        name="search"
+                        id="search"
+                        placeholder="Поиск..."
+                        className="searchText"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+
+                    <div className="category-filters">
+                        <button
+                            className={`category-filter ${!selectedCategory ? 'active' : ''}`}
+                            onClick={() => setSelectedCategory(null)}
+                        >
+                            Все категории
+                        </button>
+
+                        {categoriesData.map(category => (
+                            <button
+                                key={category.id}
+                                className={`category-filter ${selectedCategory === category.id ? 'active' : ''}`}
+                                onClick={() => setSelectedCategory(category.id)}
+                            >
+                                {category.title}
+                            </button>
+                        ))}
+                    </div>
+
+
+                    <div className="sort-controls">
+                        <span>Сортировка:</span>
+                        <button
+                            className={`sort-button ${sortBy === 'price' ? 'active' : ''}`}
+                            onClick={() => setSortBy('price')}
+                        >
+                            По цене
+                        </button>
+                        <button
+                            className={`sort-button ${sortBy === 'date' ? 'active' : ''}`}
+                            onClick={() => setSortBy('date')}
+                        >
+                            По дате добавления
+                        </button>
+                        <button
+                            className="sort-direction"
+                            onClick={toggleSortDirection}
+                        >
+                            {sortDirection === 'asc' ? '↑' : '↓'}
+                        </button>
+                    </div>
+                </div>
             </section>
 
             <section className="section-products container">
