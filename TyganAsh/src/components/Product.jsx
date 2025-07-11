@@ -8,6 +8,7 @@ const Product = (props) => {
             <h3>{props.title}</h3>
             <p>{props.description}</p>
             <p className={styles.cost}>{props.cost} ₽</p>
+            <p className="product__category">Категория: {props.category}</p>
 
             <div className={styles.buttons}>
                 {props.buttons.map((button, index) => (

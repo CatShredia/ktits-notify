@@ -1,23 +1,26 @@
 import { Link, useParams } from 'react-router-dom';
-import products from '../../data/products.json'
+import products from '../../data/products.json';
+import categories from '../../data/categories.json';
 import Product from '../components/Product';
 
 const ProductPage = () => {
-
     const { id } = useParams();
     const product = products.find(p => p.id === parseInt(id));
+
+    // Находим название категории по category_id продукта
+    const category = categories.find(c => c.id === product?.category_id)?.title || "Без категории";
 
     const buttons = [
         { type: "link", styles: "product__button_lightnest", path: `/catalog/product`, text: "Посмотреть" },
         { type: "button", styles: "product__button_darknest", path: () => console.log("Подробнее о товаре"), text: "Купить" }
-    ]
+    ];
 
     if (!product) {
         return <h2>Товар не найден</h2>;
     }
 
     return (
-        <section section className='section-product container' >
+        <section className='section-product container'>
             <div className='content'>
                 <Link to="/catalog" className='product__button_lightnest'>Назад</Link>
                 <Product
@@ -27,6 +30,7 @@ const ProductPage = () => {
                     title={product.title}
                     description={product.description}
                     cost={product.cost}
+                    category={category}  // Передаем название категории
                     buttons={buttons}
                 />
             </div>
@@ -34,8 +38,8 @@ const ProductPage = () => {
             <p className='product-history'>
                 {product.history}
             </p>
-        </section >
+        </section>
     );
-}
+};
 
 export default ProductPage;

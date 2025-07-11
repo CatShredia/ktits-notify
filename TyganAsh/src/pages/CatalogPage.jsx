@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Product from "../components/Product";
 import productData from '../../data/products.json';
+import categoriesData from '../../data/categories.json';
 
 const CatalogPage = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -10,9 +11,20 @@ const CatalogPage = () => {
         { type: "button", styles: "product__button_darknest", path: () => console.log("Подробнее о товаре"), text: "Купить" }
     ];
 
-    const filteredProducts = productData.filter(product =>
-        product.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    // Создаем объект для быстрого доступа к названию категории по id
+    const categoriesMap = categoriesData.reduce((acc, category) => {
+        acc[category.id] = category.title;
+        return acc;
+    }, {});
+
+    const filteredProducts = productData
+        .filter(product =>
+            product.title.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+        .map(product => ({
+            ...product,
+            category: categoriesMap[product.category_id] || "Без категории"
+        }));
 
     return (
         <>
@@ -37,6 +49,7 @@ const CatalogPage = () => {
                             title={product.title}
                             description={product.description}
                             cost={product.cost}
+                            category={product.category}  // Передаем категорию в компонент Product
                             buttons={buttons}
                         />
                     ))
