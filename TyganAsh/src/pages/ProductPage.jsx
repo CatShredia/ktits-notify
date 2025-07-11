@@ -1,7 +1,9 @@
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+
 import products from '../../data/products.json';
 import categories from '../../data/categories.json';
+
 import Product from '../components/Product';
 
 const ProductPage = () => {
@@ -10,7 +12,6 @@ const ProductPage = () => {
     const [cart, setCart] = useState({});
 
     useEffect(() => {
-        // Загружаем корзину из localStorage при монтировании
         const savedCart = JSON.parse(localStorage.getItem('cart')) || {};
         setCart(savedCart);
     }, []);

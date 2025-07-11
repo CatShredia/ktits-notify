@@ -1,21 +1,28 @@
 import { useState, useEffect } from "react";
+
 import Product from "../components/Product";
+
 import productData from '../../data/products.json';
 import categoriesData from '../../data/categories.json';
 
 const CatalogPage = () => {
+    // поисковая строка
     const [searchTerm, setSearchTerm] = useState("");
+    // выбранная категория
     const [selectedCategory, setSelectedCategory] = useState(null);
+    // сортировка
     const [sortBy, setSortBy] = useState(null);
+    // направление сортировки
     const [sortDirection, setSortDirection] = useState('asc');
     const [cart, setCart] = useState({});
 
+    // подгружаем данные из localStorage
     useEffect(() => {
-        // Загружаем корзину из localStorage при монтировании
         const savedCart = JSON.parse(localStorage.getItem('cart')) || {};
         setCart(savedCart);
     }, []);
 
+    // Добавление в корзину
     const handleAddToCart = (product) => {
         const updatedCart = { ...cart };
 
@@ -48,13 +55,12 @@ const CatalogPage = () => {
         }
     ];
 
-    // Создаем объект для быстрого доступа к названию категории по id
     const categoriesMap = categoriesData.reduce((acc, category) => {
         acc[category.id] = category.title;
         return acc;
     }, {});
 
-    // Функция для сортировки товаров
+    // Сортировка товаров
     const sortProducts = (products) => {
         if (!sortBy) return products;
 
@@ -71,6 +77,7 @@ const CatalogPage = () => {
         });
     };
 
+    // Фильтрация продуктов
     const filteredProducts = sortProducts(
         productData
             .filter(product => {
@@ -85,6 +92,7 @@ const CatalogPage = () => {
             }))
     );
 
+    // Напрвление сортировки
     const toggleSortDirection = () => {
         setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc');
     };

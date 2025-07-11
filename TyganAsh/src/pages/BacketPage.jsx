@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
-import Product from '../components/Product';
 import { Link } from 'react-router-dom';
 
+import Product from '../components/Product';
+
 const BasketPage = () => {
+    // продукты
     const [cartItems, setCartItems] = useState([]);
+    // общая стоимость корзины
     const [totalPrice, setTotalPrice] = useState(0);
 
+    // получаем и считаем данные
     useEffect(() => {
         const cart = JSON.parse(localStorage.getItem('cart')) || {};
         const items = Object.values(cart);
@@ -14,6 +18,7 @@ const BasketPage = () => {
         setTotalPrice(total);
     }, []);
 
+    // обновляем данные
     const updateCart = (updatedCart) => {
         localStorage.setItem('cart', JSON.stringify(updatedCart));
         const items = Object.values(updatedCart);
@@ -22,12 +27,14 @@ const BasketPage = () => {
         setTotalPrice(total);
     };
 
+    // + в корзину
     const handleIncrease = (productId) => {
         const cart = JSON.parse(localStorage.getItem('cart')) || {};
         cart[productId].count += 1;
         updateCart(cart);
     };
 
+    // - в корзину
     const handleDecrease = (productId) => {
         const cart = JSON.parse(localStorage.getItem('cart')) || {};
         if (cart[productId].count > 1) {
