@@ -5,6 +5,7 @@ import categoriesData from '../../data/categories.json';
 
 const CatalogPage = () => {
     const [searchTerm, setSearchTerm] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState(null);
 
     const buttons = [
         { type: "link", styles: "product__button_lightnest", path: `/catalog/product`, text: "Посмотреть" },
@@ -18,9 +19,13 @@ const CatalogPage = () => {
     }, {});
 
     const filteredProducts = productData
-        .filter(product =>
-            product.title.toLowerCase().includes(searchTerm.toLowerCase())
-        )
+        .filter(product => {
+            // Фильтр по поисковому запросу
+            const matchesSearch = product.title.toLowerCase().includes(searchTerm.toLowerCase());
+            // Фильтр по категории (если выбрана)
+            const matchesCategory = !selectedCategory || product.category_id === selectedCategory;
+            return matchesSearch && matchesCategory;
+        })
         .map(product => ({
             ...product,
             category: categoriesMap[product.category_id] || "Без категории"
@@ -29,16 +34,38 @@ const CatalogPage = () => {
     return (
         <>
             <section className="section-search container">
-                <input
-                    type="text"
-                    name="search"
-                    id="search"
-                    placeholder="Поиск по названию"
-                    className="searchText"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
+                <div className="search-controls">
+                    <input
+                        type="text"
+                        name="search"
+                        id="search"
+                        placeholder="Поиск..."
+                        className="searchText"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+
+                    <div className="category-filters">
+                        <button
+                            className={`category-filter ${!selectedCategory ? 'active' : ''}`}
+                            onClick={() => setSelectedCategory(null)}
+                        >
+                            Все категории
+                        </button>
+
+                        {categoriesData.map(category => (
+                            <button
+                                key={category.id}
+                                className={`category-filter ${selectedCategory === category.id ? 'active' : ''}`}
+                                onClick={() => setSelectedCategory(category.id)}
+                            >
+                                {category.title}
+                            </button>
+                        ))}
+                    </div>
+                </div>
             </section>
+
             <section className="section-products container">
                 {filteredProducts.length > 0 ? (
                     filteredProducts.map((product) => (
@@ -49,7 +76,7 @@ const CatalogPage = () => {
                             title={product.title}
                             description={product.description}
                             cost={product.cost}
-                            category={product.category}  // Передаем категорию в компонент Product
+                            category={product.category}
                             buttons={buttons}
                         />
                     ))

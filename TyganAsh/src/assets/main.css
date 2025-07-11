@@ -210,3 +210,39 @@ main {
     gap: 10px;
     flex-direction: column;
 }
+
+/* !filters and search */
+.search-controls {
+    display: flex;
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+.searchText {
+    width: 20%;
+    border: 1px solid grey;
+    color: gray;
+    font-weight: bold;
+
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.category-filters {
+    display: flex;
+    gap: 10px;
+}
+
+.category-filter {
+    background-color: #1C8D24;
+    color: white;
+
+    padding: 10px 20px;
+
+    border-radius: 5px;
+}
+
+.active {
+    background-color: #056D0C;
+}
