@@ -253,3 +253,17 @@ main {
 .active {
     background-color: #056D0C;
 }
+
+/* !backet */
+.basket-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.basket-container .products-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 15px;
+}

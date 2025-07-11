@@ -7,12 +7,31 @@ const ProductPage = () => {
     const { id } = useParams();
     const product = products.find(p => p.id === parseInt(id));
 
-    // Находим название категории по category_id продукта
+    const handleAddToCart = (product) => {
+        const cart = JSON.parse(localStorage.getItem('cart')) || {};
+
+        if (cart[product.id]) {
+            cart[product.id].count += 1;
+        } else {
+            cart[product.id] = {
+                ...product,
+                count: 1
+            };
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+        console.log(`Товар "${product.title}" добавлен в корзину`);
+    };
+
     const category = categories.find(c => c.id === product?.category_id)?.title || "Без категории";
 
     const buttons = [
-        { type: "link", styles: "product__button_lightnest", path: `/catalog/product`, text: "Посмотреть" },
-        { type: "button", styles: "product__button_darknest", path: () => console.log("Подробнее о товаре"), text: "Купить" }
+        {
+            type: "button",
+            styles: "product__button_darknest",
+            path: () => handleAddToCart(product),
+            text: "Купить"
+        }
     ];
 
     if (!product) {
@@ -30,7 +49,7 @@ const ProductPage = () => {
                     title={product.title}
                     description={product.description}
                     cost={product.cost}
-                    category={category}  // Передаем название категории
+                    category={category}
                     buttons={buttons}
                 />
             </div>
