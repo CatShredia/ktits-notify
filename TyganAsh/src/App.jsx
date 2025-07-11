@@ -10,7 +10,7 @@ import ProductPage from "./pages/ProductPage";
 
 function App() {
   return (
-    <body className="body">
+    <div className="body">
       <Header></Header>
 
       <main className="main">
@@ -22,7 +22,7 @@ function App() {
       </main>
 
       <Footer></Footer>
-    </body>
+    </div>
   )
 }
 

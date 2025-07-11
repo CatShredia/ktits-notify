@@ -9,19 +9,25 @@ const CatalogPage = () => {
     ]
 
     return (
-        <section className="section-products container">
-            {productData.map((product) => (
-                <Product
-                    id={product.id}
-                    key={product.id}
-                    img={product.image_url}
-                    title={product.title}
-                    description={product.description}
-                    cost={product.cost}
-                    buttons={buttons}
-                />
-            ))}
-        </section>
+        <>
+            <section className="section-search">
+                <input type="text" name="text" id="text" placeholder="text" />
+            </section>
+            <section className="section-products container">
+                {productData.map((product) => (
+                    <Product
+                        id={product.id}
+                        key={product.id}
+                        img={product.image_url}
+                        title={product.title}
+                        description={product.description}
+                        cost={product.cost}
+                        buttons={buttons}
+                    />
+                ))}
+            </section>
+        </>
+
     );
 };
 
